@@ -7,19 +7,19 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
 
-      var go;
       $.fn.scroll = function(params){
-        go = true;
+        window.go = true;
+
         var keys = Object.keys(params);
         for (var key in keys) {
           if (keys[key] === 'stop'){
-            go = false;}
+            window.go = false;}
 
         }
         var total = this.text().length;
         var timer = 85;
         var counter = 0;
-
+        console.log("gg: " + window.go);
         var g = reverseALetter.bind(this);
         g();
 
@@ -28,8 +28,8 @@
         }
 
         function reverseALetter(){
-
-          if (go===true){
+          console.log("in RA");
+          if (window.go===true){
             counter ++;
             strText = $(this).text();
             firstChar = strText[0];
@@ -44,6 +44,7 @@
       }
 
       function callme(){
+        console.log("in callme");
         $('div').scroll({});
       }
 
