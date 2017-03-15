@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Reverse It</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+
+      $.fn.scroll = function initScroller() {
+
+        this.each(function() {
+          var go = false;
+          $(this).find('.start-button').click(start);
+          $(this).find('.stop-button').click(stop);
+          var ticker = $(this).find('.ticker');
+
+          function stop() {
+            go = false;
+          }
+
+          function start(){
+            go = true;
+            var total = ticker.text().length;
+            var timer = 85;
+            console.log("gg: " + go);
+            reverseALetter();
+
+            function delay(){
+              setTimeout(reverseALetter, timer);
+            }
+
+            function reverseALetter(){
+              console.log("in RA");
+              if (go===true){
+                var strText = ticker.text();
+                var firstChar = strText[0];
+                var rest = strText.slice(1,strText.length);
+                var newstring = rest + firstChar;
+                setTimeout(function(){
+                  ticker.text(newstring);
+                  delay();
+                },0);
+              }
+            }
+          }
+        });
+
+
+      };
+
+      $(function() {
+        $('.scroller').scroll();
+      });
+
+    </script>
+    <style>
+      body {text-align: center;}
+      div {
+        font-size: 1.3em;
+        padding-top: 150px;
+        width:700px;
+        margin: auto;
+      }
+      button {
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div>This is some random text to be included in the div.</div> -->
+    <div class="scroller">
+      <div class="ticker">This is some random text inside the div to scroll.</div>
+      <button class="start-button">Scroll</button>
+      <button class="stop-button">Stop</button>
+    </div>
+
+    <div class="scroller">
+      <div class="ticker">jQuery is cool.</div>
+      <button class="start-button">Scroll</button>
+      <button class="stop-button">Stop</button>
+    </div>
+  </body>
+</html>
