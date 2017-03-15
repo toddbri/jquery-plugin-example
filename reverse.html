@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Reverse It</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+
+      var go;
+      $.fn.scroll = function(params){
+        go = true;
+        var keys = Object.keys(params);
+        for (var key in keys) {
+          if (keys[key] === 'stop'){
+            go = false;}
+
+        }
+        var total = this.text().length;
+        var timer = 85;
+        var counter = 0;
+
+        var g = reverseALetter.bind(this);
+        g();
+
+        function delay(){
+          setTimeout(g, timer);
+        }
+
+        function reverseALetter(){
+
+          if (go===true){
+            counter ++;
+            strText = $(this).text();
+            firstChar = strText[0];
+            rest = strText.slice(1,strText.length);
+            newstring = rest + firstChar;
+            setTimeout(function(){
+              $(this).text(newstring);
+              delay();
+            }.bind(this),0);
+          }
+        }
+      }
+
+      function callme(){
+        $('div').scroll({});
+      }
+
+      function stopit(){
+        $('div').scroll({stop:true});
+      }
+    </script>
+    <style>
+      body {text-align: center;}
+      div {
+        font-size: 2em;
+        padding-top: 150px;
+        width:700px;
+        margin: auto;
+      }
+      button {
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div>This is some random text to be included in the div.</div> -->
+    <div>This is some random text inside the div to scroll.</div>
+    <button onclick="callme()">Scroll</button>
+    <button onclick="stopit()">Stop</button>
+  </body>
+</html>
